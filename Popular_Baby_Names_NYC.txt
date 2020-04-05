@@ -1,0 +1,63 @@
+https://catalog.data.gov/dataset/most-popular-baby-names-by-sex-and-mothers-ethnic-group-new-york-city-8c742
+
+
+============================
+
+
+
+Popular Baby Names
+Metadata Updated: February 12, 2020
+
+Popular Baby Names by Sex and Ethnic Group Data were collected through civil birth registration. Each record represents the ranking of a baby name in the order of frequency. Data can be used to represent the popularity of a name. Caution should be used when assessing the rank of a baby name if the frequency count is close to 10; the ranking may vary year to year.
+
+Access & Use Information
+Public: This dataset is intended for public access and use.
+Non-Federal: This dataset is covered by different Terms of Use than Data.gov. See Terms
+ License: No license information was provided.
+Downloads & Resources
+
+Comma Separated Values FileCSV  3331 views
+ 
+
+ Link is ok
+      Openness score
+ Download
+RDF FileRDF  235 views
+ 
+
+ Link is ok
+      Openness score
+ Download
+JSON FileJSON  420 views
+ 
+
+ Link is ok
+      Openness score
+ Download
+XML FileXML  518 views
+ 
+
+ Link is ok
+      Openness score
+ Download
+Landing PageLanding Page
+ Visit page
+Dates
+Metadata Created Date	February 4, 2015
+Metadata Updated Date	February 12, 2020
+Metadata Source
+Data.jsonData.json Metadata
+Download Metadata
+
+Harvested from NYC JSON
+
+2018od4a-video birth-name boy ethnicity female girl health male name popular-name race vital-statistic
+Additional Metadata
+Resource Type	Dataset
+Metadata Created Date	February 4, 2015
+Metadata Updated Date	February 12, 2020
+Publisher	data.cityofnewyork.us
+Unique Identifier	https://data.cityofnewyork.us/api/views/25th-nujf
+Maintainer	
+NYC OpenData
+Maintainer Email	
