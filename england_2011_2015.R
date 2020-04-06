@@ -32,39 +32,41 @@ ew_boys <- ew_boys[6:nrow(ew_boys), ]
 ew_girls <- ew_girls[6:nrow(ew_girls), ]
 
 # count for names
-# ew_boys_name_count = data frame for counts per boy name 
-# ew_girls_name_count = data frame for counts per girl name 
+# ew_boys_name_count_total = data frame for counts per boy name 
+# ew_girls_name_count_total = data frame for counts per girl name 
 b_name <- rep(ew_boys$Name, times = length(2015:2011))
 g_name <- rep(ew_girls$Name, times = length(2015:2011))
 valid_col <- paste(2015:2011, 'Count')
-build_b <- function(df, col) {
-        vec <- c()
-        for (x in col) {
-                vec <- c(vec, df[, x])
+
+ew_boys_name_count <- ew_boys %>% select(Name, valid_col)
+ew_boys_col_count <- sapply(ew_boys_name_count[, 2:ncol(ew_boys_name_count)], as.numeric)
+ew_boys_name_count <- cbind(ew_boys_name_count, ew_boys_col_count)
+
+sum_by_row <- function(df) {
+        sum_vec <- c()
+        for (i in 1:nrow(df)) {
+                vec <- df[i, 7:ncol(df)]
+                num = sum(vec, na.rm = TRUE)
+                sum_vec <- c(sum_vec, num)
         }
-        vec
+        sum_vec
 }
-ew_boys_name_count <- data.frame(Name = b_name, Counts = build_b(ew_boys, valid_col))
-ew_boys_name_count <- ew_boys_name_count %>% 
-        filter(Counts != ':') %>%
-        group_by(Name) %>%
-        mutate(Counts = as.numeric(Counts)) %>%
-        summarize(Count = sum(Counts)) 
-ew_boys_name_count <- ew_boys_name_count %>% 
+
+ew_boy_vec <- sum_by_row(ew_boys_name_count)
+ew_boys_name_count_total <- data.frame(Name = ew_boys_name_count$Name, 
+                                       Count = ew_boy_vec)
+
+
+ew_girls_name_count <- ew_girls %>% select(Name, valid_col)
+ew_girls_col_count <- sapply(ew_girls_name_count[, 2:ncol(ew_girls_name_count)], as.numeric)
+ew_girls_name_count <- cbind(ew_girls_name_count, ew_girls_col_count)
+ew_girl_vec <- sum_by_row(ew_girls_name_count) 
+
+ew_girls_name_count_total <- data.frame(Name = ew_girls_name_count$Name, 
+                                        Count = ew_girl_vec)
+
+# final data table with names and counts for girls and boys
+ew_boys_name_count_total <- ew_boys_name_count_total %>%
         arrange(desc(Count))
-
-ew_girls_name_count <- data.frame(Name = g_name, Counts = build_b(ew_girls, valid_col))
-ew_girls_name_count <- ew_girls_name_count %>% 
-        filter(Counts != ':') %>%
-        group_by(Name) %>%
-        mutate(Counts = as.numeric(Counts)) %>%
-        summarize(Count = sum(Counts)) 
-ew_girls_name_count <- ew_girls_name_count %>% 
+ew_girls_name_count_total <- ew_girls_name_count_total %>% 
         arrange(desc(Count))
-
-
-
-
-
-
-
