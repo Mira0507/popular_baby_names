@@ -70,3 +70,6 @@ ew_boys_name_count_total <- ew_boys_name_count_total %>%
         arrange(desc(Count))
 ew_girls_name_count_total <- ew_girls_name_count_total %>% 
         arrange(desc(Count))
+
+write.csv(ew_boys_name_count_total, 'e_boys.csv')
+write.csv(ew_girls_name_count_total, 'e_girls.csv')
