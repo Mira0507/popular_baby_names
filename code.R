@@ -10,6 +10,7 @@ ny <- ny %>% rename(Year = "Year of Birth", Name = 'Child\'s First Name')
 # ew_ex = master list for england and wales (both genders)
 ew <- excel_sheets('adhocallbabynames1996to2016.xls')
 ew_ex <- lapply(ew, read_excel, path = 'adhocallbabynames1996to2016.xls')
+ew_data_info <- rbind(ew_ex[[2]], ew_ex[[3]])
 
 # ew_boys = master data frame england and wales (boys) 
 # ew_girls = master data frame england and wales (girls) 
