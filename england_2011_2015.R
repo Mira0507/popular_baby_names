@@ -1,6 +1,7 @@
 library(tidyverse)
 library(data.table)
 library(readxl)
+library(ggplot2)
 
 # ew_ex = master list for england and wales (both genders)
 ew <- excel_sheets('adhocallbabynames1996to2016.xls')
@@ -70,5 +71,55 @@ ew_boys_name_count_total <- ew_boys_name_count_total %>%
 ew_girls_name_count_total <- ew_girls_name_count_total %>% 
         arrange(desc(Count))
 
+# e_boys.csv = a summary table for popular boy names in 2011-2015
+# e_girls_csv = a summary table for popular girl names in 2011-2015
 write.csv(ew_boys_name_count_total, 'e_boys.csv')
 write.csv(ew_girls_name_count_total, 'e_girls.csv')
+
+new_col_names <- c('Name', as.character(2:ncol(ew_boys_name_count)))
+
+# Renaming
+ew_boys_name_count1 <- ew_boys_name_count
+ew_girls_name_count1 <- ew_girls_name_count
+names(ew_boys_name_count1) <- new_col_names
+names(ew_girls_name_count1) <- new_col_names
+
+# Column trimming & renaming
+ew_boys_name_count1 <- ew_boys_name_count1 %>% 
+        select(Name, 7, 8, 9, 10, 11) 
+ew_girls_name_count1 <- ew_girls_name_count1 %>% 
+        select(Name, 7, 8, 9, 10, 11) 
+names(ew_boys_name_count1) <- c('Name', '2015', '2014', '2013', '2012', '2011')
+names(ew_girls_name_count1) <- c('Name', '2015', '2014', '2013', '2012', '2011')
+
+# Selecting top 20 names
+ew_boys_top20 <- ew_boys_name_count1 %>% 
+        filter(Name %in% ebn20)
+ew_girls_top20 <- ew_girls_name_count1 %>%
+        filter(Name %in% egn20)
+
+# Data gathering by year
+ew_boys_top20 <- gather(ew_boys_top20, Year, Count, -Name)
+ew_girls_top20 <- gather(ew_girls_top20, Year, Count, -Name)
+
+# ew_boys_top20 = final top 20 names by year for boys
+# ew_girls_top20 = final top 20 names by year for girls
+ew_boys_top20 <- ew_boys_top20 %>% 
+        arrange(Year) %>% 
+        mutate(Year = as.numeric(Year))
+ew_girls_top20 <- ew_girls_top20 %>%
+        arrange(Year) %>% 
+        mutate(Year = as.numeric(Year))
+
+# plots
+ew_boys_top20_plot <- ggplot(ew_boys_top20, aes(x = Year, y = Count, group = Name)) + 
+        geom_line(aes(color = Name)) + 
+        geom_point(aes(color = Name)) + 
+        ylab('Numbers') + 
+        ggtitle('Popularity Trend of Boy Names in England and Wales in 2011-2015')
+
+ew_girls_top20_plot <- ggplot(ew_girls_top20, aes(x = Year, y = Count, group = Name)) +
+        geom_line(aes(color = Name)) + 
+        geom_point(aes(color = Name)) +
+        ylab('Numbers') +
+        ggtitle('Popularity Trend of Girl Names in England and Wales in 2011-2015')
