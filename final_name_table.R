@@ -53,3 +53,8 @@ common_bn20 <- ebn20[ebn20 %in% ubn20]
 unique_egn20 <- egn20[!egn20 %in% ugn20]
 unique_ugn20 <- ugn20[!ugn20 %in% egn20]
 common_gn20 <- egn20[egn20 %in% ugn20]
+
+u_boys_top10 <- boy_names[1:10, 3]
+u_girls_top10 <- girl_names[1:10, 3]
+e_boys_top10 <- boy_names[1:10, 1]
+e_girls_top10 <- girl_names[1:10, 1]
