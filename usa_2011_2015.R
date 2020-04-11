@@ -61,7 +61,7 @@ y2011 <- y2011 %>% mutate(Year = 2011)
 usa_baby_by_yr <- rbind(y2015, y2014, y2013, y2012, y2011)
 
 
-# popularity change of top 20 boy & girl names 
+# popularity change of top 10 and 20 boy & girl names 
 usa_boy_yr_top20 <- usa_baby_by_yr %>%
         mutate(Name = toupper(Name)) %>%
         filter(Gender == 'M', Name %in% ubn20)
@@ -70,15 +70,24 @@ usa_girl_yr_top20 <- usa_baby_by_yr %>%
         mutate(Name = toupper(Name)) %>%
         filter(Gender == 'F', Name %in% ugn20)
 
+usa_boy_yr_top10 <- usa_baby_by_yr %>%
+        mutate(Name = toupper(Name)) %>%
+        filter(Gender == 'M', Name %in% u_boys_top10)
+
+usa_girl_yr_top10 <- usa_baby_by_yr %>% 
+        mutate(Name = toupper(Name)) %>%
+        filter(Gender == 'F', Name %in% u_girls_top10)
+
+
 # plotting
-usa_boy_yr_top20 <- ggplot(usa_boy_yr_top20, aes(x = Year, y = Count, group = Name)) +
-        geom_line(aes(color = Name)) + 
-        geom_point(aes(color = Name)) +
+usa_boy_yr_top10_plot <- ggplot(usa_boy_yr_top10, aes(x = Year, y = Count)) +
+        geom_line(aes(color = Name), size = 1.5) + 
         ylab('Numbers') + 
         ggtitle('Popularity Trend of Boy Names in the US in 2011-2015')
 
-usa_girl_yr_top20 <- ggplot(usa_girl_yr_top20, aes(x = Year, y = Count, group = Name)) +
-        geom_line(aes(color = Name)) + 
-        geom_point(aes(color = Name)) +
+usa_girl_yr_top10_plot <- ggplot(usa_girl_yr_top10, aes(x = Year, y = Count)) +
+        geom_line(aes(color = Name), size = 1.5) + 
         ylab('Numbers') + 
         ggtitle('Popularity Trend of Girl Names in the US in 2011-2015')
+
+
